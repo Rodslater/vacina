@@ -57,7 +57,7 @@ vacinas <- vacinas %>%
   select(-city_code) %>% 
   filter(vacina != "")
   
-tipo_vacina <- read_excel("tipo_vacina.xlsx")
+tipo_vacina <- read_excel("data/tipo_vacina.xlsx")
 
 vacinas <- left_join(vacinas, tipo_vacina, by ="vacina")
 vacinas <- vacinas %>% 
