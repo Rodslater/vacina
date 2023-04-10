@@ -1,0 +1,41 @@
+on:
+  schedule:
+    - cron:  "*/5 * * * *"
+  workflow_dispatch:
+
+name: 01-rscript
+
+jobs:
+  run-r-script:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::sf
+            any::tidyverse
+            any::rvest
+            any::leaflet
+            any::rio
+            any::readxl
+            any::htmlwidgets
+            pak::pkg_install(c("covid19br", "url::https://cran.r-project.org/src/contrib/Archive/covid19br/covid19br_0.1.4.tar.gz"))
+            pak::pkg_install(c("brazilmaps", "url::https://cran.r-project.org/src/contrib/Archive/brazilmaps/brazilmaps_0.1.0.tar.gz"))
+            
+      - name: Execute Script
+        run: |
+          Rscript "data/script.R"
+      - name: Commit results
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add .
+          git commit -m "Results from R script" || echo "No changes to commit"
+          git push origin || echo "No changes to commit"-
