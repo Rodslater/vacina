@@ -26,12 +26,9 @@ jobs:
             any::rio
             any::readxl
             any::htmlwidgets
-            pak::pkg_install("rpradosiqueira/brazilmaps")
+            url::https://cran.r-project.org/src/contrib/Archive/covid19br/covid19br_0.1.4.tar.gz, any::sessioninfo  
+            url::https://cran.r-project.org/src/contrib/Archive/brazilmaps/brazilmaps_0.1.0.tar.gz, any::sessioninfo
             
-          
-      - name: Install old versions
-         pak::pkg_install(c("covid19br", "url::https://cran.r-project.org/src/contrib/Archive/covid19br/covid19br_0.1.4.tar.gz"))
-
             
       - name: Execute Script
         run: |
