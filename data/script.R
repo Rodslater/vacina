@@ -160,4 +160,4 @@ mapa_vacina <- leaflet(shp_sf, options = leafletOptions(attributionControl=FALSE
             values = ~prop_2doseoudoseunica, 
             opacity = 0.8)
 
-htmlwidgets::saveWidget(mapa_vacina, paste0('data/',Sys.Date(),'_mapa_vacina','.html'))
+htmlwidgets::saveWidget(mapa_vacina, 'data/mapa_vacina.html')
