@@ -27,8 +27,7 @@ jobs:
             any::readxl
             any::htmlwidgets            
           
-      - name: Install from github
-        run: pak::pkg_install("rpradosiqueira/brazilmaps")
+      - name: Install old versions
          pak::pkg_install(c("covid19br", "url::https://cran.r-project.org/src/contrib/Archive/covid19br/covid19br_0.1.4.tar.gz"))
          pak::pkg_install(c("brazilmaps", "url::https://cran.r-project.org/src/contrib/Archive/brazilmaps/brazilmaps_0.1.0.tar.gz"))
             
