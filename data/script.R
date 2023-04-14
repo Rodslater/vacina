@@ -60,9 +60,6 @@ vacinas <- vacinas %>%
 tipo_vacina <- read_excel("data/tipo_vacina.xlsx")
 
 vacinas <- left_join(vacinas, tipo_vacina, by ="vacina")
-vacinas <- vacinas %>% 
-  select(city, vacina=vacina_ajustada)
-
 
 vacinas_aplicadas <- vacinas %>% 
   group_by(city) %>%
