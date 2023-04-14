@@ -61,6 +61,9 @@ tipo_vacina <- read_excel("data/tipo_vacina.xlsx")
 
 vacinas <- left_join(vacinas, tipo_vacina, by ="vacina")
 
+vacinas <- vacinas %>% 
+    select(data, city, vacina=vacina_ajustada)
+
 vacinas_aplicadas <- vacinas %>% 
   group_by(city) %>%
   summarise(
@@ -100,10 +103,6 @@ Sergipe <- Sergipe %>%
          Rank_prop_5dose = round(rank(desc(prop_5dose)))
   )
 
-
-
-# bibliotecas
-# install.packages('C:/Users/Rodrigo/Desktop/Projetos R/Leaflet/brazilmaps_0.1.0.tar.gz', repos = NULL, type="source")
 
 
 Sergipe$city_code <- as.character(Sergipe$city_code)
