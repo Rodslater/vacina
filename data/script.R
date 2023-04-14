@@ -160,4 +160,9 @@ mapa_vacina <- leaflet(shp_sf, options = leafletOptions(attributionControl=FALSE
             values = ~prop_2doseoudoseunica, 
             opacity = 0.8)
 
-htmlwidgets::saveWidget(mapa_vacina, 'data/mapa_vacina.html')
+    
+htmlwidgets::saveWidget(mapa_vacina, 'data/mapa_vacina.html')  
+saveRDS(vacinas, 'data/vacinas.rds')
+saveRDS(vacinas_aplicadas, 'data/vacinas_aplicadas.rds')
+saveRDS(Sergipe, 'data/Sergipe.rds')  
+    
