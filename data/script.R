@@ -74,7 +74,8 @@ vacinas <- vacinas %>%
 vacina_dia <- vacinas %>% 
   group_by(data) %>% 
   summarise(vacinas = n()) %>% 
-  mutate(vacina_acumulada = cumsum(vacinas))
+  mutate(vacina_acumulada = cumsum(vacinas),
+         semana = week(data))
     
 vacinas_aplicadas <- vacinas %>% 
   group_by(city) %>%
