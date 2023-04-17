@@ -62,8 +62,20 @@ tipo_vacina <- read_excel("data/tipo_vacina.xlsx")
 vacinas <- left_join(vacinas, tipo_vacina, by ="vacina")
 
 vacinas <- vacinas %>% 
-    select(data, city, vacina=vacina_ajustada)
-
+    select(data, city, vacina=vacina_ajustada) %>%
+  mutate(data = as.Date(data)) %>% 
+  mutate(data = case_when(data  == as.Date('2012-01-11') ~ as.Date('2022-01-11'),
+                          data  == as.Date('2020-01-17') ~ as.Date('2021-01-17'),
+                          data  == as.Date('2020-03-10') ~ as.Date('2021-03-10'),
+                          data  == as.Date('2021-01-03') ~ as.Date('2022-01-03'),
+                         TRUE ~ data)) %>% 
+  arrange(data) 
+    
+vacina_dia <- vacinas %>% 
+  group_by(data) %>% 
+  summarise(vacinas = n()) %>% 
+  mutate(vacina_acumulada = cumsum(vacinas))
+    
 vacinas_aplicadas <- vacinas %>% 
   group_by(city) %>%
   summarise(
@@ -159,6 +171,6 @@ mapa_vacina <- leaflet(shp_sf, options = leafletOptions(attributionControl=FALSE
     
 htmlwidgets::saveWidget(mapa_vacina, 'data/mapa_vacina.html')  
 saveRDS(vacinas, 'data/vacinas.rds')
+saveRDS(vacina_dia, 'data/vacina_dia.rds')
 saveRDS(vacinas_aplicadas, 'data/vacinas_aplicadas.rds')
-saveRDS(Sergipe, 'data/Sergipe.rds')  
-    
+saveRDS(Sergipe, 'data/Sergipe.rds')
