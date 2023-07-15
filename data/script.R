@@ -8,6 +8,7 @@ library(rio)
 library(readxl)
 library(htmlwidgets)
 
+memory.limit(24576)
 
 cidades <- downloadCovid19("cities")
 
